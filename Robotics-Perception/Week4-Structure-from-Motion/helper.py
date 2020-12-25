@@ -55,3 +55,14 @@ def draw_epipolar_lines_using_FundamentalMatrix(F, img_left, img_right, pts_left
     
     plt.subplot(121);plt.imshow(img4);  plt.axis('off')
     plt.subplot(122);plt.imshow(img6); plt.axis('off')
+    
+    
+# utils for reshaping common vector points
+def vectorize_point(point):
+    """
+    inputs a points (x,y) of shape (n) and converts into a vector form of shape (n,1) |x|
+                                                                                      |y|
+                                                                                      |1|
+    """
+    
+    return np.hstack((point,np.array([1]))).reshape(-1,1)
