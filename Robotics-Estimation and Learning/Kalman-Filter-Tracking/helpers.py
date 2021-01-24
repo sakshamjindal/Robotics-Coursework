@@ -3,19 +3,18 @@ from numpy import matmul as mm
 from scipy.linalg import cho_factor,cho_solve
 
 def rdivide(A,B):
+    
     c,low = cho_factor(B.T)
     C = cho_solve((c,low),A.T).T
     return C
 def ldivide(A,B):
+    
     c,low = cho_factor(A)
     C = cho_solve((c,low),B)
     return C
 
 def kalmanFilter(t,x,y,state,param,previous_t):
-    
-    """
-    
-    """
+
     dt = t - previous_t
     C = np.array([[1,0,0,0],[0,1,0,0]])
     A = np.array([[1,0,dt,0],[0,1,0,dt],[0,0,1,0],[0,0,0,1]])
@@ -43,4 +42,5 @@ def kalmanFilter(t,x,y,state,param,previous_t):
     predictx,predicty = x_f[0],x_f[1]
     P -= mm(mm(K,C),P)
     param['P'] = P
+    
     return predictx,predicty,state,param
